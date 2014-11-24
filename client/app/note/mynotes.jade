@@ -1,0 +1,8 @@
+include ./list-note.jade
+
+div(ng-include='"components/navbar/navbar.html"')
+
+.container
+  section(data-ng-init="find()")
+    +notes('My Notes')
+

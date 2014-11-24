@@ -1,0 +1,17 @@
+mixin
+  .col-lg-12
+    .row
+      .col-lg-6
+        form.form-horizontal
+          .form-group
+            .controls
+              input.form-control(type="text", data-ng-model="note.title", id="title", placeholder="Title" required)
+          .form-group
+            .controls
+              textarea.form-control(rows="17", data-ng-model="note.content", id="content", placeholder="Content" required)
+          .form-group
+            input.btn.btn-default(type="submit", value="Save", data-ng-click="save()")
+      .col-lg-6
+        .panel.panel-default
+          .panel-body.marked-content
+            span(marked="note.content")

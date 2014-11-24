@@ -7,6 +7,17 @@ angular.module('mdnotesApp')
       'link': '/'
     }];
 
+    $scope.loggedInMenu = [{
+      'title': 'Note',
+      'link': '/note'
+    }, {
+      'title': 'MyNote',
+      'link': '/note/my'
+    }, {
+      'title': 'New Note',
+      'link': '/note/create'
+    }];
+
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.isAdmin = Auth.isAdmin;

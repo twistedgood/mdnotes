@@ -22,6 +22,8 @@ module.exports = function(config) {
       'client/bower_components/lodash/dist/lodash.compat.js',
       'client/bower_components/angular-socket-io/socket.js',
       'client/bower_components/angular-ui-router/release/angular-ui-router.js',
+      'client/bower_components/angular-marked/angular-marked.js',
+      'client/bower_components/marked/lib/maked.js',
       'client/app/app.js',
       'client/app/app.coffee',
       'client/app/**/*.js',
@@ -38,6 +40,8 @@ module.exports = function(config) {
       '**/*.jade': 'ng-jade2js',
       '**/*.html': 'html2js',
       '**/*.coffee': 'coffee',
+      'client/app/*.js': 'coverage',
+      'client/app/*/*.js': 'coverage'
     },
 
     ngHtml2JsPreprocessor: {
@@ -46,6 +50,13 @@ module.exports = function(config) {
 
     ngJade2JsPreprocessor: {
       stripPrefix: 'client/'
+    },
+
+    reporters: ['dots', 'coverage'],
+
+    coverageReporter: {
+      type: 'html',
+      dir: 'coverage/'
     },
 
     // list of files / patterns to exclude
@@ -60,7 +71,7 @@ module.exports = function(config) {
 
 
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: false,
+    autoWatch: true,
 
 
     // Start these browsers, currently available:

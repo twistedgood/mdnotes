@@ -7,6 +7,8 @@
 
 var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
+var Note = require('../api/note/note.model');
+var ObjectId = require('mongoose').Types.ObjectId;
 
 Thing.find({}).remove(function() {
   Thing.create({
@@ -42,8 +44,23 @@ User.find({}).remove(function() {
     name: 'Admin',
     email: 'admin@admin.com',
     password: 'admin'
-  }, function() {
+  }, function(err, test, admin) {
       console.log('finished populating users');
+      Note.find({}).remove(function() {
+        Note.create({
+          title: 'AAA',
+          content: 'AAA\n==\naaa\n--',
+          user: new ObjectId(test._id)
+        }, {
+          title: 'BBB',
+          content: 'BBB\n==\nbbb\n--',
+          user: new ObjectId(test._id)
+        }, {
+          title: 'Adm',
+          content: 'Adm\n==\nadm\n--',
+          user: new ObjectId(admin._id)
+        });
+      });
     }
   );
 });
