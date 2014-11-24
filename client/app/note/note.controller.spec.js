@@ -6,35 +6,51 @@ describe('Controller: NoteCtrl', function () {
   beforeEach(module('mdnotesApp'));
   beforeEach(module('socketMock'));
 
-  var NoteCtrl, scope, $httpBackend;
+  var NoteCtrl, scope, Note, $httpBackend;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope, _$httpBackend_) {
+  beforeEach(inject(function ($controller, $rootScope, $q, _$httpBackend_) {
     scope = $rootScope.$new();
     $httpBackend = _$httpBackend_;
+    Note = function(properties){
+      for (var k in properties) {
+        this[k] = properties[k];
+      }
+    };
+    Note.query = function() {
+        return [
+          {title: 'A', content: 'aaa' },
+          {title: 'B', content: 'bbb' }
+        ];
+    };
+    Note.get = function() {
+      return {title: 'A', content: 'aaa' };
+    };
     NoteCtrl = $controller('NoteCtrl', {
       $scope: scope,
-      $stateParams: {id: 'XXX'}
+      $stateParams: {id: 'XXX'},
+      Note: Note
     });
   }));
 
   it('should find all notes', function () {
-    $httpBackend.expectGET('/api/notes').respond([
-      {title: 'A', content: 'aaa' },
-      {title: 'B', content: 'bbb' }
-    ]);
+    spyOn(Note, 'query').andCallThrough();
     scope.find();
-    $httpBackend.flush();
+    expect(Note.query).toHaveBeenCalled();
     expect(scope.notes.length).toEqual(2);
   });
 
   it('should find one note', function () {
-    $httpBackend.expectGET('/api/notes/XXX').respond(
-      {title: 'A', content: 'aaa' }
-    );
+    spyOn(Note, 'get').andCallThrough();
     scope.findOne();
-    $httpBackend.flush();
+    expect(Note.get).toHaveBeenCalledWith({id :'XXX'});
     expect(scope.note.title).toEqual('A');
+  });
+
+  it('should create one new note', function () {
+    expect(scope.note).toBeUndefined();
+    scope.newOne();
+    expect(scope.note).toBeDefined();
   });
 
 });

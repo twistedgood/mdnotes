@@ -52,7 +52,7 @@ module.exports = function(config) {
       stripPrefix: 'client/'
     },
 
-    reporters: ['dots', 'coverage'],
+    reporters: ['spec', 'coverage'],
 
     coverageReporter: {
       type: 'html',
