@@ -56,8 +56,28 @@ User.find({}).remove(function() {
           content: 'BBB\n==\nbbb\n--',
           user: new ObjectId(test._id)
         }, {
-          title: 'Adm',
+          title: 'Adm Private Closed',
           content: 'Adm\n==\nadm\n--',
+          private: true,
+          open: false,
+          user: new ObjectId(admin._id)
+        }, {
+          title: 'Adm Private Opened',
+          content: 'Adm\n==\nadm\n--',
+          private: true,
+          open: true,
+          user: new ObjectId(admin._id)
+        }, {
+          title: 'Adm Public Closed',
+          content: 'Adm\n==\nadm\n--',
+          private: false,
+          open: false,
+          user: new ObjectId(admin._id)
+        }, {
+          title: 'Adm Public Opened',
+          content: 'Adm\n==\nadm\n--',
+          private: false,
+          open: true,
           user: new ObjectId(admin._id)
         });
       });

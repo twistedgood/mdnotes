@@ -12,7 +12,7 @@ angular.module('mdnotesApp')
       if ($state.current.name === 'listMyNote') {
         var user = Auth.getCurrentUser();
         if (user) {
-          params.user = user._id
+          params.user = user._id;
         }
       }
       $scope.notes = Note.query(params);
@@ -54,5 +54,15 @@ angular.module('mdnotesApp')
       });
     };
 
+    $scope.isEditable = function(note) {
+      if (Auth.isLoggedIn()) {
+        var user = Auth.getCurrentUser();
+        if (user._id === note.user) {
+          return true;
+        }
+        return note.open;
+      }
+      return false;
+    };
 
   });
