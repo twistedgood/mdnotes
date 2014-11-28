@@ -2,12 +2,11 @@ mixin notes(header)
   h1= header
   ul.list-group
     li.list-group-item(data-ng-repeat="note in notes")
+      .pull-right(data-ng-show="isEditable(note)")
+        a.btn(data-ui-sref="editNote({id: note._id})")
+          i.glyphicon.glyphicon-edit
+        a.btn(data-ng-click="remove(note)")
+          i.glyphicon.glyphicon-trash
       a(data-ui-sref="viewNote({id: note._id})")
-        .list-group-item-heading(data-ng-bind="note.title")
-        .pull-right
-          a.btn(data-ui-sref="editNote({id: note._id})")
-            i.glyphicon.glyphicon-edit
-          a.btn(data-ng-click="remove(note)")
-            i.glyphicon.glyphicon-trash
         .list-group-item-heading(data-ng-bind="note.title")
 

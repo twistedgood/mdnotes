@@ -5,12 +5,12 @@ angular.module('mdnotesApp')
     $scope.menu = [{
       'title': 'Home',
       'link': '/'
+    }, {
+      'title': 'Note',
+      'link': '/note'
     }];
 
     $scope.loggedInMenu = [{
-      'title': 'Note',
-      'link': '/note'
-    }, {
       'title': 'MyNote',
       'link': '/note/my'
     }, {

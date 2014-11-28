@@ -10,6 +10,8 @@ exports.index = function(req, res) {
   var params = {};
   if (req.query.user) {
     params.user = new ObjectId(req.query.user);
+  } else {
+    params.private = false;
   }
   Note.find(params, function (err, notes) {
     if(err) { return handleError(res, err); }
