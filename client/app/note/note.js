@@ -11,7 +11,7 @@ angular.module('mdnotesApp')
       .state('listMyNote', {
         url: '/note/my',
         templateUrl: 'app/note/mynotes.html',
-        controller: 'MyNoteCtrl'
+        controller: 'NoteCtrl'
       })
       .state('createNote', {
         url: '/note/create',

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mdnotesApp')
-  .controller('NoteCtrl', function ($scope, $stateParams, $location, Auth, socket, Note) {
+  .controller('NoteCtrl', function ($scope, $state, $stateParams, Auth, socket, Note) {
 
     $scope.$on('$destroy', function () {
       socket.unsyncUpdates('note');
@@ -9,7 +9,7 @@ angular.module('mdnotesApp')
 
     $scope.find = function() {
       var params = {};
-      if ($location.path() == '/note/my') {
+      if ($state.current.name === 'listMyNote') {
         var user = Auth.getCurrentUser();
         if (user) {
           params.user = user._id
@@ -33,13 +33,13 @@ angular.module('mdnotesApp')
       var note = $scope.note;
       if (note._id) {
         note.$update(function(response) {
-          $location.path('note/' + response._id);
+          $state.go('viewNote', {id: response._id});
         }, function(errorResponse) {
           $scope.error = errorResponse.data.message;
         });
       } else {
         note.$save(function(response) {
-          $location.path('note/' + response._id);
+          $state.go('viewNote', {id: response._id});
         }, function(errorResponse) {
           $scope.error = errorResponse.data.message;
         });
@@ -48,7 +48,7 @@ angular.module('mdnotesApp')
 
     $scope.remove = function(note) {
       note.$remove(function(response) {
-        $location.path('note');
+        $state.go('listNote');
       }, function(errorResponse) {
         $scope.error = errorResponse.data.message;
       });
