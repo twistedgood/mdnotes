@@ -444,11 +444,20 @@ module.exports = function (grunt) {
 
     mochaTest: {
       options: {
-        reporter: 'spec'
+        reporter: 'nyan'
       },
       src: ['server/**/*.spec.js']
     },
 
+    mocha_istanbul: {
+      src: 'server',
+      options: {
+        mask: '**/*.spec.js',
+        reporter: 'spec',
+        reportFormats: ['lcov']
+      }
+    },
+    
     protractor: {
       options: {
         configFile: 'protractor.conf.js'
@@ -632,7 +641,8 @@ module.exports = function (grunt) {
       return grunt.task.run([
         'env:all',
         'env:test',
-        'mochaTest'
+        //'mochaTest',
+        'mocha_istanbul'
       ]);
     }
 

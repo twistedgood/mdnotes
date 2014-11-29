@@ -50,11 +50,18 @@ User.find({}).remove(function() {
         Note.create({
           title: 'AAA',
           content: 'AAA\n==\naaa\n--',
-          user: new ObjectId(test._id)
+          user: new ObjectId(test._id),
+          tags: [
+            {text: 'Tag A'},
+          ]
         }, {
           title: 'BBB',
           content: 'BBB\n==\nbbb\n--',
-          user: new ObjectId(test._id)
+          user: new ObjectId(test._id),
+          tags: [
+            {text: 'Tag A'},
+            {text: 'Tag B'}
+          ]
         }, {
           title: 'Adm Private Closed',
           content: 'Adm\n==\nadm\n--',

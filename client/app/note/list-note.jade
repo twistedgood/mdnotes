@@ -3,6 +3,8 @@ mixin notes(header)
   ul.list-group
     li.list-group-item(data-ng-repeat="note in notes")
       .pull-right(data-ng-show="isEditable(note)")
+        span(data-ng-repeat="tag in note.tags")
+          a.btn-sm.btn-primary(data-ng-bind="tag.text")
         a.btn(data-ui-sref="editNote({id: note._id})")
           i.glyphicon.glyphicon-edit
         a.btn(data-ng-click="remove(note)")
