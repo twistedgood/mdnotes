@@ -6,6 +6,7 @@ var controller = require('./note.controller');
 var router = express.Router();
 
 router.get('/', controller.index);
+router.get('/tags', controller.listTag);
 router.get('/:id', controller.show);
 router.post('/', controller.create);
 router.put('/:id', controller.update);

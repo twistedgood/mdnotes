@@ -4,9 +4,9 @@ var _ = require('lodash');
 var ObjectId = require('mongoose').Types.ObjectId;
 var Note = require('./note.model');
 
+
 // Get list of notes
 exports.index = function(req, res) {
-  debugger;
   var params = {};
   if (req.query.user) {
     params.user = new ObjectId(req.query.user);
@@ -42,6 +42,7 @@ exports.update = function(req, res) {
   Note.findById(req.params.id, function (err, note) {
     if (err) { return handleError(res, err); }
     if(!note) { return res.send(404); }
+    note.tags = [];
     var updated = _.merge(note, req.body);
     updated.save(function (err) {
       if (err) { return handleError(res, err); }
@@ -59,6 +60,13 @@ exports.destroy = function(req, res) {
       if(err) { return handleError(res, err); }
       return res.send(204);
     });
+  });
+};
+
+exports.listTag = function(req, res) {
+  Note.find().distinct('tags', function (err, tags) {
+    if(err) { return handleError(res, err); }
+    return res.json(tags);
   });
 };
 

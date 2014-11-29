@@ -1,6 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose'),
+    timestamps = require('mongoose-timestamp'),
     Schema = mongoose.Schema;
 
 var NoteSchema = new Schema({
@@ -17,7 +18,10 @@ var NoteSchema = new Schema({
   user: {
     type: Schema.ObjectId,
     ref: 'User'
-  }
+  },
+  tags: []
 });
+
+NoteSchema.plugin(timestamps);
 
 module.exports = mongoose.model('Note', NoteSchema);

@@ -7,6 +7,7 @@ angular.module('mdnotesApp', [
   'btford.socket-io',
   'ui.router',
   'ui.bootstrap',
+  'ngTagsInput',
   'hc.marked'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
