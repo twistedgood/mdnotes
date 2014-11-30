@@ -14,7 +14,7 @@
   "quotmark": "single",
   "regexp": true,
   "undef": true,
-  "unused": true,
+  "unused": "vars",
   "strict": true,
   "trailing": true,
   "smarttabs": true,
@@ -31,6 +31,7 @@
     "inject": true,
     "it": true,
     "expect": true,
+    "spyOn": true,
     "browser": true,
     "element": true,
     "by": true
