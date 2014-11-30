@@ -3,9 +3,10 @@ div(ng-include='"components/navbar/navbar.html"')
 .container
   section(data-ng-controller="NoteCtrl", data-ng-init="findOne()")
     h1(data-ng-bind="note.title")
-    .pull-right(data-ng-show="isEditable(note)")
+    .pull-right
       span(data-ng-repeat="tag in note.tags")
         a.btn-sm.btn-primary(data-ng-bind="tag.text")
+    .pull-right(data-ng-show="isEditable(note)")
       a.btn(data-ui-sref="editNote({id: note._id})")
         i.glyphicon.glyphicon-edit
       a.btn(data-ng-click="remove()")
