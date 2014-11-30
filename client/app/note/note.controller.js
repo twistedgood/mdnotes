@@ -31,7 +31,6 @@ angular.module('mdnotesApp')
 
     $scope.save = function() {
       var note = $scope.note;
-      console.log(note.tags);
       if (note._id) {
         note.$update(function(response) {
           $state.go('viewNote', {id: response._id});
