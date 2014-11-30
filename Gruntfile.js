@@ -70,13 +70,12 @@ module.exports = function (grunt) {
         tasks: ['injector:css']
       },
       mochaTest: {
-        files: ['server/**/*.spec.js'],
+        files: ['server/**/*.{js,json}'],
         tasks: ['env:test', 'mochaTest']
       },
       jsTest: {
         files: [
-          '<%= yeoman.client %>/{app,components}/**/*.spec.js',
-          '<%= yeoman.client %>/{app,components}/**/*.mock.js'
+          '<%= yeoman.client %>/{app,components}/**/*.js',
         ],
         tasks: ['newer:jshint:all', 'karma']
       },
@@ -639,6 +638,8 @@ module.exports = function (grunt) {
   grunt.registerTask('test', function(target) {
     if (target === 'server') {
       return grunt.task.run([
+        'jshint:server',
+        'jshint:serverTest',
         'env:all',
         'env:test',
         //'mochaTest',
