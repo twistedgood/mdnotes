@@ -4,5 +4,7 @@ public
 .idea
 client/bower_components
 dist
-/server/config/local.env.js
-coverage
+server/config/local.env.js
+coverage/*
+!.gitkeep
+*.log
