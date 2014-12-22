@@ -1,7 +1,9 @@
 mixin
-  .col-lg-12
-    .row
-      .col-lg-6
+
+.panel-body     
+  tabset(justified="true")
+    tab(heading="Edit")
+      .panel-body
         form.form-horizontal
           .form-group
             .controls
@@ -13,7 +15,26 @@ mixin
             tags-input(data-ng-model="note.tags")
           .form-group
             input.btn.btn-default(type="submit", value="Save", data-ng-click="save()")
-      .col-lg-6
-        .panel.panel-default
-          .panel-body.marked-content
-            span(marked="note.content")
+    tab(heading="Preview")
+      .panel-body
+        span(marked="note.content")
+    tab(heading="Edit w/ Preview")
+      .panel-body
+        .col-md-12
+          .row
+            .col-md-6
+              form.form-horizontal
+                .form-group
+                  .controls
+                    input.form-control(type="text", data-ng-model="note.title", id="title", placeholder="Title" required)
+                .form-group
+                  .controls
+                    textarea.form-control(rows="17", data-ng-model="note.content", id="content", placeholder="Content" required)
+                .form-group
+                  tags-input(data-ng-model="note.tags")
+                .form-group
+                  input.btn.btn-default(type="submit", value="Save", data-ng-click="save()")
+            .col-md-6
+              .panel.panel-default
+                .panel-body.marked-content
+                  span(marked="note.content")

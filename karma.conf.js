@@ -25,6 +25,7 @@ module.exports = function(config) {
       'client/bower_components/angular-marked/angular-marked.js',
       'client/bower_components/marked/lib/maked.js',
       'client/bower_components/ng-tags-input/ng-tags-input.min.js',
+      'client/bower_components/angular-modal-service/dst/angular-modal-service.js',
       'client/app/app.js',
       'client/app/app.coffee',
       'client/app/**/*.js',

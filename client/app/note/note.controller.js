@@ -48,7 +48,7 @@ angular.module('mdnotesApp')
 
     $scope.remove = function(note) {
       note.$remove(function(response) {
-        $state.go('listNote');
+        $state.reload();
       }, function(errorResponse) {
         $scope.error = errorResponse.data.message;
       });

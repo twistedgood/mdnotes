@@ -8,6 +8,7 @@ angular.module('mdnotesApp', [
   'ui.router',
   'ui.bootstrap',
   'ngTagsInput',
+  'angularModalService',
   'hc.marked'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {

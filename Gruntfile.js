@@ -579,6 +579,16 @@ module.exports = function (grunt) {
         }
       }
     },
+    
+    connect: {
+      server: {
+        options: {
+          port: 9001,
+          keepalive: true,
+          base: './coverage'
+        }
+      }
+    },
   });
 
   // Used for delaying livereload until after server has restarted
@@ -679,6 +689,10 @@ module.exports = function (grunt) {
       'test:client'
     ]);
   });
+
+  grunt.registerTask('report', [
+    'connect'
+  ]);
 
   grunt.registerTask('build', [
     'clean:dist',

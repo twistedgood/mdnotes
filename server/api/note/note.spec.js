@@ -19,6 +19,42 @@ describe('GET /api/notes', function() {
   });
 });
 
+describe('GET /api/notes/:id', function() {
+  var note = new Note({
+    title: 'Test Title',
+    content: 'Test Content',
+    tags: [
+      {text: 'Test Tag A'},
+      {text: 'Test Tag B'}
+    ]
+  });
+
+  before(function(done) {
+    Note.remove().exec()
+    .then(function() {
+      return Note.create(note)
+    })
+    .then(function() {
+      done();
+    })
+  });
+
+  it('should respond with JSON', function(done) {
+    request(app)
+      .get('/api/notes/' + note._id)
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(function(err, res) {
+        if (err) return done(err);
+        res.body.title.should.equal('Test Title');
+        res.body.tags.should.have.length(2);
+        res.body.tags[0].text.should.equal('Test Tag A');
+        res.body.tags[1].text.should.equal('Test Tag B');
+        done();
+      });
+  });
+});
+
 describe('POST /api/notes', function() {
   it('should register', function(done) {
     request(app)

@@ -6,16 +6,17 @@ describe('Controller: NoteCtrl', function () {
   beforeEach(module('mdnotesApp'));
   beforeEach(module('socketMock'));
 
-  var NoteCtrl, scope, $state, Note, Auth, $httpBackend;
+  var NoteCtrl, scope, $state, Note, Auth, socket, $httpBackend;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function($controller, $rootScope, _$state_, _$httpBackend_, _Auth_, _Note_) {
+  beforeEach(inject(function($controller, $rootScope, _$state_, _$httpBackend_, _Auth_, _Note_, _socket_) {
     scope = $rootScope.$new();
     $httpBackend = _$httpBackend_;
     NoteCtrl = $controller('NoteCtrl', {
       $scope: scope,
       $state: $state = _$state_,
       $stateParams: {id: 'XXX'},
+      socket: socket = _socket_,
       Auth: Auth = _Auth_,
       Note: Note = _Note_
     });
@@ -23,14 +24,15 @@ describe('Controller: NoteCtrl', function () {
 
   describe('find', function () {
     it('should find all notes', function () {
+      spyOn(socket, 'syncUpdates').andCallThrough();
       $state.current.name = 'listNote';
       spyOn(Note, 'query').andReturn([
         {title: 'A', content: 'aaa' },
         {title: 'B', content: 'bbb' }
       ]);
       scope.find();
-      expect(Note.query).toHaveBeenCalled();
       expect(scope.notes.length).toEqual(2);
+      expect(socket.syncUpdates).toHaveBeenCalledWith('note', scope.notes);
     });
 
     it('should find my notes', function () {
@@ -134,10 +136,10 @@ describe('Controller: NoteCtrl', function () {
       spyOn(note, '$remove').andCallFake(function(success, error) {
         success();
       });
-      spyOn($state, 'go').andCallThrough();
+      spyOn($state, 'reload').andCallFake(function() {});
       scope.remove(note);
       expect(note.$remove).toHaveBeenCalled();
-      expect($state.go).toHaveBeenCalledWith('listNote');
+      expect($state.reload).toHaveBeenCalled();
     });
 
     it('should retrieve the error message if failed to remove', function () {
@@ -194,5 +196,12 @@ describe('Controller: NoteCtrl', function () {
     });
   });
 
+  describe('$scope.$on(\'destory\')', function () {
+    it('should call unsyncUpdate on destroy', function () {
+      spyOn(socket, 'unsyncUpdates').andCallThrough();
+      scope.$destroy();
+      expect(socket.unsyncUpdates).toHaveBeenCalledWith('note');
+    });
+  });
 
 });

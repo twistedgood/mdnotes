@@ -1,5 +1,10 @@
 mixin notes(header)
   h1= header
+  p(data-ng-hide="!notes || notes.length")
+    | No Notes yet. Why don't you 
+    a(data-ui-sref="createNote")
+      | Create One 
+    | ?
   ul.list-group
     li.list-group-item(data-ng-repeat="note in notes")
       .pull-right
@@ -12,4 +17,15 @@ mixin notes(header)
           i.glyphicon.glyphicon-trash
       a(data-ui-sref="viewNote({id: note._id})")
         .list-group-item-heading(data-ng-bind="note.title")
-
+  script(type="text/ng-template", id="removeConfirmation.html")
+    .modal.fade
+      .modal-dialog
+        .modal-content
+          .modal-header
+            button(type="button", class="close", data-ng-click="close('Cancel')", data-dismiss="modal", aria-hidden="true")
+              &times;
+            .modal-title
+            .modal-body
+              Are you OK?
+            .modal-footer
+              button.btn.btn-default(type="button", data-ng-click="close('No')")
