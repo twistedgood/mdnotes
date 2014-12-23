@@ -157,10 +157,49 @@ describe('GET /api/notes/tag', function() {
         if (err) return done(err);
         res.body.should.be.instanceof(Array);
         res.body.should.have.length(3);
-        res.body[0].text.should.equal('Tag A');
-        res.body[1].text.should.equal('Tag B');
-        res.body[2].text.should.equal('Tag C');
+        res.body[0].should.equal('Tag A');
+        res.body[1].should.equal('Tag B');
+        res.body[2].should.equal('Tag C');
         done();
       });
   });
 });
+
+describe('PUT /api/notes/:id', function() {
+  var note = new Note({
+    title: 'Test Title',
+    content: 'Test Content'
+  });
+
+  before(function(done) {
+    Note.remove().exec()
+    .then(function() {
+      return Note.create(note)
+    })
+    .then(function() {
+      done();
+    })
+  });
+
+  it('should respond with JSON', function(done) {
+    request(app)
+      .put('/api/notes/' + note._id)
+      .expect(200)
+      .send({
+        title: 'Test Title Mod',
+        content: 'Test Content Mod',
+        tags: [
+          {text: 'Test Tag C'}
+        ]
+      })
+      .end(function(err, res) {
+        if (err) return done(err);
+        res.body.title.should.equal('Test Title Mod');
+        res.body.content.should.equal('Test Content Mod');
+        res.body.tags.should.have.length(1);
+        res.body.tags[0].text.should.equal('Test Tag C');
+        done();
+      });
+  });
+});
+
