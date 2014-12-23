@@ -4,6 +4,10 @@ var mongoose = require('mongoose'),
     timestamps = require('mongoose-timestamp'),
     Schema = mongoose.Schema;
 
+var NoteTagSchema = new Schema({
+  text: String
+});
+
 var NoteSchema = new Schema({
   title: String,
   content: String,
@@ -19,7 +23,7 @@ var NoteSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'User'
   },
-  tags: []
+  tags: [NoteTagSchema]
 });
 
 NoteSchema.plugin(timestamps);

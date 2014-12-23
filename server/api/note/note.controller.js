@@ -64,7 +64,7 @@ exports.destroy = function(req, res) {
 };
 
 exports.listTag = function(req, res) {
-  Note.find().distinct('tags', function (err, tags) {
+  Note.find().distinct('tags.text', function (err, tags) {
     if(err) { return handleError(res, err); }
     return res.json(tags);
   });
